@@ -1,5 +1,5 @@
 # accuracy_metrics
-Precision, Recall, F1, unweighted, weighted accuracy all in one code. Requires ndarray type labels for numpy.
+Saving everyone the hassle. Precision, Recall, F1, unweighted, weighted accuracy, confusion matrix, all in one code. Requires ndarray type labels for numpy.
 
 ## Use:
 ```python
