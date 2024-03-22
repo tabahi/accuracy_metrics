@@ -16,6 +16,7 @@ print(results)
 
 '''
 {'N_counts': [17, 13, 7], 'uar': 43.67, 'war': 43.33, 'precision': 0.405, 'recall': 0.405, 'f1_score': 0.405, 'precision_sk': 0.433, 'recall_sk': 0.419, 'f1_score_sk': 0.426}
+_sk for metrics calculated skipping the skipped class.
 '''
 
 ```
