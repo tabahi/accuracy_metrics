@@ -1,8 +1,8 @@
 # accuracy_metrics
-Saving everyone the hassle. Precision, Recall, F1, unweighted, weighted accuracy, confusion matrix, all in one code. Requires ndarray type labels for numpy.
-
+- Saving everyone the hassle. Precision, Recall, F1, unweighted, weighted accuracy, confusion matrix, all in one code.
+- Requires ndarray type labels for numpy.
 - Option to skip a class in weighting macro averages.
-- 
+
 ## Use:
 ```python
 import accuracy_metrics #put accuracy_metrics.py in your project dir.
