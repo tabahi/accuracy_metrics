@@ -146,7 +146,7 @@ def generate_classification_metrics(y_true, y_pred, skip_label=None, confusion_c
     `skip_label`: The row (or col) of the confusion matric to skip when calculating UAR. If you want to calculate metrics without considering a particular label. E.g, in calculating UAR skipped label would be given zero weight when calculating the final mean. It's useful to eliminate a class that dominates the results so that other classes can be analyzed.
     '''
     #print("generate_classification_metrics")
-    np_unique_y = np.unique(y_true)
+    np_unique_y = np.sort(np.unique(y_true))
     #print(np_unique_y)
     conf = create_conf_matrix(y_true, y_pred, np_unique_y)
     uar, war, precision, recall, f1_score, precision_wO, recall_wO, f1_wO, all_precisions, all_recalls = get_accuracy_metrics(conf, skip=(np.where(np_unique_y == skip_label )[0][0]) if skip_label is not None else -1)
