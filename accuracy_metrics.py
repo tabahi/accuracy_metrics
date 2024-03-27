@@ -97,14 +97,14 @@ def get_accuracy_metrics(confusion_matrix, skip=-1):
 
     return round(uar*100, 2), round(war*100, 2), round(precision,3), round(recall,3), round(f1_score,3), round(prec_skip_O,3), round(recall_wO,3), round(f1_wO,3), all_precisions, all_recalls
 
-def create_conf_matrix(expected, predicted, classes_unique):
+def create_conf_matrix(rows, cols, classes_unique):
         n_classes = len(classes_unique)
         m = np.zeros((n_classes, n_classes), dtype=np.uint16)
 
-        for i in range(len(expected)):
+        for i in range(len(cols)):
             for exp in range(n_classes):
                 for pred in range(n_classes):
-                    if(expected[i]==classes_unique[exp]) and (predicted[i]==classes_unique[pred]):
+                    if(cols[i]==classes_unique[exp]) and (rows[i]==classes_unique[pred]):
                         m[exp][pred] += 1
         return m
 
