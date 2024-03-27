@@ -1,5 +1,5 @@
 # accuracy_metrics
-- Saving everyone the hassle. Precision, Recall, F1, unweighted, weighted accuracy, confusion matrix, all in one code.
+- Saving everyone the hassle. Precision, Recall, F1, unweighted average recall (micro-average), weighted accuracy (typical macro-accuracy), and confusion matrix, all in one code.
 - Requires ndarray type labels for numpy.
 - Option to skip a class in weighting macro averages.
 
