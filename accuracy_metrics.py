@@ -48,13 +48,13 @@ def get_accuracy_metrics(confusion_matrix, skip=-1):
     total_correct = 0
     total_n = 0
     
-    for row in range(0, len(confusion_matrix)):
-        if(row!=skip) and (np.nansum(confusion_matrix[row]) > 5): #skipping O
-            true_n = np.nansum(confusion_matrix[row])
+    for exp in range(0, len(confusion_matrix)):
+        if(exp!=skip) and (np.nansum(confusion_matrix[exp]) > 5): #skipping O
+            true_n = np.nansum(confusion_matrix[exp])
             
-            total_correct += confusion_matrix[row, row]
+            total_correct += confusion_matrix[exp, exp]
             total_n += true_n
-            class_acc_arr = np.append(class_acc_arr, confusion_matrix[row, row] / true_n)
+            class_acc_arr = np.append(class_acc_arr, confusion_matrix[exp, exp] / true_n)
             true_n_arr = np.append(true_n_arr, true_n)
         #else:
             #class_recalls = np.append(class_recalls, confusion_matrix[row, row] * 0)
@@ -97,16 +97,17 @@ def get_accuracy_metrics(confusion_matrix, skip=-1):
 
     return round(uar*100, 2), round(war*100, 2), round(precision,3), round(recall,3), round(f1_score,3), round(prec_skip_O,3), round(recall_wO,3), round(f1_wO,3), all_precisions, all_recalls
 
-def create_conf_matrix(rows, cols, classes_unique):
-        n_classes = len(classes_unique)
-        m = np.zeros((n_classes, n_classes), dtype=np.uint16)
+def create_conf_matrix(trues, preds, classes_unique):
+        
+    n_classes = len(classes_unique)
+    m = np.zeros((n_classes, n_classes), dtype=np.uint16)
 
-        for i in range(len(cols)):
-            for exp in range(n_classes):
-                for pred in range(n_classes):
-                    if(cols[i]==classes_unique[exp]) and (rows[i]==classes_unique[pred]):
-                        m[exp][pred] += 1
-        return m
+    for i in range(len(preds)):
+        for exp in range(n_classes):
+            for pred in range(n_classes):
+                if(preds[i]==classes_unique[pred]) and (trues[i]==classes_unique[exp]):
+                    m[exp][pred] += 1
+    return m
 
 
 
@@ -132,12 +133,12 @@ def save_stats(confusion, headings, all_precisions, all_recalls, N_counts, preci
             for row in range(0,len(headings)):
                 if((skip_label is not None) and (headings[row]==skip_label)): index_of_O = row
                 N_perc = N_counts[row]*100/sum(N_counts) if (N_counts[row] > 0) else 0
-                this_row = [headings[row], str(round(N_perc, 2))+"%", round(all_precisions[row]*100,1), round(all_recalls[row]*100,1), round((all_precisions[row]+all_recalls[row])*100/2,1) ]
+                this_row = [headings[row], str(round(N_perc, 2))+"%", round(all_precisions[row]*100,2), round(all_recalls[row]*100,2), round((all_precisions[row]+all_recalls[row])*100/2,2) ]
                 writer.writerow(this_row)
-            writer.writerow(["Mean", "", round(np.mean(all_precisions)*100,1), round(np.mean(all_recalls)*100,1), round((np.mean(all_recalls)+np.mean(all_recalls))*100/2,1) ])
-            writer.writerow(["Overall", sum(N_counts), round(precision*100,1), round(recall*100,1), round(f1_score*100,1) ])
+            writer.writerow(["Mean", "", round(np.mean(all_precisions)*100,2), round(np.mean(all_recalls)*100,2), round((np.mean(all_recalls)+np.mean(all_recalls))*100/2,2) ])
+            writer.writerow(["Overall", sum(N_counts), round(precision*100,2), round(recall*100,1), round(f1_score*100,2) ])
             if (index_of_O >= 0):
-                writer.writerow(["Overall_skiped", sum(N_counts)-N_counts[index_of_O], round(precision_wO*100,1), round(recall_wO*100,1), round(f1_wO*100,1) ])
+                writer.writerow(["Overall_skiped", sum(N_counts)-N_counts[index_of_O], round(precision_wO*100,2), round(recall_wO*100,2), round(f1_wO*100,2) ])
         
 
 
